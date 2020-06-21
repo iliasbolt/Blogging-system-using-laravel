@@ -140,3 +140,5 @@ Route::get('/posts/{id}/edit/lang/{lg?}',function ($id,$lg = null){
     return view('posts.edit',compact('ediT','id'))->with('post',$post);
 
 });
+
+// just comment
