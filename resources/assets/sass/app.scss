@@ -1,0 +1,37 @@
+
+// Fonts
+@import url("https://fonts.googleapis.com/css?family=Raleway:300,400,600");
+
+// Variables
+@import "variables";
+
+// Bootstrap
+
+@import "node_modules/bootstrap-sass/assets/stylesheets/bootstrap";
+
+//myclasses
+
+.searchHelper{
+  margin-top: -10px;
+  width: 88%;
+  margin-left: 12%;
+  height: fit-content;
+
+  margin-top: -20px;
+  border-radius: 10px;
+  box-shadow: 0px 0px 0px 0px black;
+
+  color:darkgray;
+background-color: rgba(230, 227, 227, 0.8);
+}
+.oneItemsearch{
+  box-shadow: 0px 0px 0px 0px black;
+  cursor: pointer;
+
+}
+.oneItemsearch:hover{
+  color:#3097d1;
+}
+.btnrecherch{
+  border: 1px solid #3097d1;
+}
