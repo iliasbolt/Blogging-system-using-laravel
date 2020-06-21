@@ -198,7 +198,7 @@ class PostController extends Controller
                 $filenamewithExt = $request->file('cover_image')->getClientOriginalName();
                 //get just file name
         $filename = pathinfo($filenamewithExt,PATHINFO_FILENAME);
-
+                    
                 //get just extension
             $extentin = $request->file('cover_image')->getClientOriginalExtension();
 
