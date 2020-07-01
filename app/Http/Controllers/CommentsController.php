@@ -2,27 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use http\Env\Response;
+use Exception;
 use Illuminate\Http\Request;
 use App\Comment;
 
 class CommentsController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
-    {
-        //
-    }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-   
     /**
      * Store a newly created resource in storage.
      *
@@ -44,6 +31,23 @@ class CommentsController extends Controller
         
 
         return redirect('/posts/'.$id);
+    }
+
+    public function ajaxDelete(Request $request)
+    {
+
+
+            $comment = Comment::findOrFail($request->idC);
+
+            try {
+                $comment->delete();
+                return response()->json(['status'=>1]);
+            }catch(Exception $ex)
+            {
+                return response()->json(['status'=>0]);
+            }
+
+
     }
     
 }

@@ -59,6 +59,11 @@ Route::resource('posts','PostController');//hna kayw9e3 dikxi li makayenx f rout
 
 Route::post('/putComment/{id}','CommentsController@store')->middleware('auth');
 
+//delete comment ajax
+    Route::get('ajaxRequestD','CommentsController@ajaxDelete');
+
+
+Route::post('ajaxRequestD','CommentsController@ajaxDelete')->name('ajaxDelete');
 
 Auth::routes();
 
@@ -72,10 +77,10 @@ Route::post('/filter','searchController@filter');
 
 
 
+
 //live search
 Route::get('ajaxRequest','searchController@liveSearch');
 Route::post('ajaxRequest','searchController@liveSearch')->name('liveSearch');
-
 
 
 

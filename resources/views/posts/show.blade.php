@@ -22,18 +22,59 @@
 							<fieldset>
 
 								<p>
+									<div id="{{$p->id}}">
 									@if(Auth()->user()->id == $p->user->id)
-										<button class="btn btn-sm bg-danger text-primary">
+										<button class="btn btn-sm bg-danger text-primary btnDelComment" id="{{$p->id}}">
 											X
 										</button>
 									@endif
 									 &nbsp &nbsp &nbsp{{$p->text}} &nbsp;  | &nbsp; {{$p->created_at}} posted by &nbsp;
 
 									<a href="/profile/{{$p->user->id}}"><strong>{{$p->user->name}}</strong></a>
-
+									</div>
 								</p>
 
 							</fieldset>
+								<script>
+									$(document).ready(function () {
+
+										$.ajaxSetup({
+											headers: {
+												'X-CSRF-TOKEN': $('meta[name = "csrf-token"]').attr('content')
+											}
+										});
+
+										$(".btnDelComment").click(function (e) {
+
+											let IDComment = e.target.id;
+											//alert(IDComment);
+
+											$.ajax(
+													{url:"{{route('ajaxDelete')}}",Type:'POST' ,data:{idC:IDComment}
+													, dataType:'JSON',success:function(result){
+												console.log("success",result);
+												let data = eval(result);
+															 if(data.status == 1)
+															 {
+
+																 document.getElementById(IDComment).remove();
+															 }
+															 else{
+															 	alert("Somthing went wrong Please try again !!");
+															 }
+
+											},error:function(result){
+
+													//alert("");
+											}
+											})
+										})
+
+
+
+
+									});
+								</script>
 
 							@endforeach
 
@@ -55,13 +96,13 @@
 									 <input type="text" name="Comment" placeholder="PutComment" class="form-control "/>
 									</div>
 									<div class="form-group col-md-4 col-lg-4 col-xs-4 col-sm-4">
-										<input type="submit" name="submit" value="Submit" class="btn btn-primary"/>
+										<input type="submit" name="submit" value="submit" class="btn btn-primary"/>
 									</div>
 
 								</form>
 							</div>
 			<br>
-	<hr>
+
 	@if(!Auth::guest())
 
 		@if(Auth::user()->id == $post->user_id)
@@ -85,5 +126,5 @@
 			<a href="/posts" class="btn btn-default btn-block"> Go Back </a>
 	</div>
 
-			<!-- git  tests to push -->  
+			<!-- git  tests to push -->
 </div>
