@@ -16,7 +16,7 @@ class PostController extends Controller
     {
 
         $this->middleware('auth',['except' => ['index','show']]);
-        
+
     }
 
 
