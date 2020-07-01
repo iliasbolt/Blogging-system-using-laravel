@@ -84,4 +84,6 @@
 	<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
 			<a href="/posts" class="btn btn-default btn-block"> Go Back </a>
 	</div>
+
+			<!-- git  tests to push -->  
 </div>
