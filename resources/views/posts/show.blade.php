@@ -20,10 +20,19 @@
 						
 							@foreach($post->comments as $p)
 							<fieldset>
-								<p> Comment :{{$p->text}} &nbsp;  | &nbsp; {{$p->created_at}} posted by &nbsp;
+
+								<p>
+									@if(Auth()->user()->id == $p->user->id)
+										<button class="btn btn-sm bg-danger text-primary">
+											X
+										</button>
+									@endif
+									 &nbsp &nbsp &nbsp{{$p->text}} &nbsp;  | &nbsp; {{$p->created_at}} posted by &nbsp;
+
 									<a href="/profile/{{$p->user->id}}"><strong>{{$p->user->name}}</strong></a>
 
 								</p>
+
 							</fieldset>
 
 							@endforeach
@@ -38,32 +47,41 @@
 						@endif
 					</div>
 			</div>	<br>
-							<div>
+							<div class="col-md-12 col-sm-12 col-lg-12 col-xs-12">
 
 								<form action="/putComment/{{$post->id}}" method="Post">
 										{{csrf_field()}}
+									<div class="form-group col-md-6 col-lg-8 col-xs-8 col-sm-8">
+									 <input type="text" name="Comment" placeholder="PutComment" class="form-control "/>
+									</div>
+									<div class="form-group col-md-4 col-lg-4 col-xs-4 col-sm-4">
+										<input type="submit" name="submit" value="Submit" class="btn btn-primary"/>
+									</div>
 
-									<input type="text" name="Comment" placeholder="PutComment" class="form-control"/>
-									<input type="submit" name="submit" value="Submit" class="btn btn-primary"/>
 								</form>
 							</div>
+			<br>
 	<hr>
 	@if(!Auth::guest())
 
 		@if(Auth::user()->id == $post->user_id)
-		<a href="/posts/{{$post->id}}/edit" class="btn btn-info btn-block"> Edit</a>
-		<br>
+			<div class="form-group col-md-6 col-lg-6 col-xs-12 col-sm-12">
+				<a href="/posts/{{$post->id}}/edit" class="btn btn-info btn-block"> Edit</a>
+			</div>
+
 
 		<!-- Delete part // b7ala b7al edit 7ta hiya khassa Delete method but we need use hidden trick--->
+		<div class="form-group col-md-6 col-lg-6 col-xs-12 col-sm-12">
+			{!!Form::open(['action' => ['PostController@destroy',$post->id] , 'method' => 'Post','class' => '']) !!}
+			{{Form::hidden('_method','DELETE')}}
+			{{Form::submit('Delete',['class' => 'btn btn-danger btn-block'])}}
 
-		{!!Form::open(['action' => ['PostController@destroy',$post->id] , 'method' => 'Post','class' => '']) !!}
-		{{Form::hidden('_method','DELETE')}}
-		{{Form::submit('Delete',['class' => 'btn btn-danger btn-block'])}}
-
-		{!!Form::close()!!}
+			{!!Form::close()!!}
+		</div>
 			@endif
 	@endif
 
-	<br>
-			<a href="/posts" class="btn btn-default btn-block">Go Back</a><br><br>
+	<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+			<a href="/posts" class="btn btn-default btn-block">Go Back</a>
+	</div>
 </div>
